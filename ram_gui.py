@@ -1,0 +1,97 @@
+import sys
+import PySimpleGUI as sg
+from ram import RAM
+
+sg.theme("DarkAmber")
+sg.set_options(font=('Courier New', 14))
+
+if len(sys.argv) < 2:
+    print("usage: ram program.ram input1 input2 ...")
+    sys.exit(1)
+
+file_name = sys.argv[1]
+file = open(file_name, mode='r')
+source_code = file.read()
+file.close()
+
+input = [int(i) for i in sys.argv[2:]]
+ram = RAM(source_code, input)
+source_code_list = [[line] for line in source_code.split('\n')]
+
+layout = [
+    [sg.Table(
+        source_code_list, 
+        headings=['Program'],
+        col_widths=[10],
+        auto_size_columns=False,
+        num_rows=min(25, len(source_code_list)), 
+        display_row_numbers=True, 
+        justification='left',
+        key='Program',
+        select_mode=sg.TABLE_SELECT_MODE_BROWSE
+        )
+    ,
+        sg.Table(
+        [], 
+        headings=['Registers'],
+        col_widths=[10],
+        auto_size_columns=False,
+        num_rows=min(25, len(source_code_list)),
+        display_row_numbers=True, 
+        justification='right',
+        text_color = 'SkyBlue3',
+        key='Register',
+        select_mode=sg.TABLE_SELECT_MODE_NONE
+        )
+    ,
+    [
+        sg.Table(
+            [], 
+            headings=['Input'],
+            col_widths=[10],
+            auto_size_columns=False,
+            num_rows=10, 
+            display_row_numbers=True, 
+            justification='right',
+            text_color = 'tomato',
+            key='Input',
+            select_mode=sg.TABLE_SELECT_MODE_NONE
+            )
+        ,
+        sg.Table(
+            [], 
+            headings=['Output'],
+            col_widths=[10],
+            auto_size_columns=False,
+            num_rows=10, 
+            display_row_numbers=True,
+            text_color = 'green yellow',
+            justification='right',
+            key='Output',
+            select_mode=sg.TABLE_SELECT_MODE_NONE
+            )
+        ]
+    ]
+]
+
+window = sg.Window('Random Access Machine', layout, finalize=True, resizable=True, return_keyboard_events=True, use_default_focus=False)
+
+while True:
+    window['Program'].update(select_rows = [ram.pc])
+    window['Input'].update(values = [[i] for i in ram.input])
+    window['Register'].update(values = [[i] for i in ram.register])
+    window['Output'].update(values = [[i] for i in ram.output])
+
+    window, event, values = sg.read_all_windows()
+    if event == sg.WIN_CLOSED:
+        break
+    if event == ' ':
+        try:
+            if not ram.halted and not ram.step():
+                sg.popup_auto_close('RAM halted')
+                for i in ram.output:
+                    print(i, end=' ')
+                print('')
+        except Exception as e:
+            sg.popup_error_with_traceback(f'Exception occured executing instruction number {ram.pc}', e)
+            break
