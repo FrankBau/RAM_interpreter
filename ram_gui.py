@@ -20,14 +20,14 @@ source_code_list = [[line] for line in source_code.split('\n')]
 
 layout = [
     [
-        sg.Text('Input:', key='Input',  text_color = 'tomato', expand_x=True, expand_y=True)
+        sg.Text('Input:', key='Input',  text_color = 'tomato', relief=sg.RELIEF_GROOVE, expand_x=True, expand_y=False)
     ],
     [
         sg.Table(source_code_list, key='Program', headings=['Program'], col_widths=[10], auto_size_columns=False, num_rows=min(25, len(source_code_list)),  display_row_numbers=True, justification='left', select_mode=sg.TABLE_SELECT_MODE_NONE, expand_x=True, expand_y=True),
         sg.Table([], key='Register', headings=['Registers'], col_widths=[10], auto_size_columns=False, num_rows=min(25, len(source_code_list)), display_row_numbers=True, justification='right', select_mode=sg.TABLE_SELECT_MODE_NONE, expand_x=True, expand_y=True, text_color = 'SkyBlue3'),
     ],
     [
-        sg.Text('Output:', key='Output', text_color = 'light green', expand_x=True, expand_y=True)
+        sg.Text('Output:', key='Output', text_color = 'light green', relief=sg.RELIEF_GROOVE, expand_x=True, expand_y=False)
     ]
 ]
 
