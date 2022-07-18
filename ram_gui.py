@@ -3,7 +3,7 @@ import PySimpleGUI as sg
 from ram import RAM
 
 sg.theme("DarkAmber")
-sg.set_options(font=('Courier New', 14))
+sg.set_options(font=('Courier New', 12))
 
 if len(sys.argv) < 2:
     print("usage: ram program.ram input1 input2 ...")
@@ -20,21 +20,22 @@ source_code_list = [[line] for line in source_code.split('\n')]
 
 layout = [
     [
-        sg.Text('Input:', key='Input',  text_color = 'tomato')
+        sg.Text('Input:', key='Input',  text_color = 'tomato', expand_x=True, expand_y=True)
     ],
     [
-        sg.Table(source_code_list, headings=['Program'], col_widths=[10], auto_size_columns=False, num_rows=min(25, len(source_code_list)),  display_row_numbers=True, justification='left', key='Program', select_mode=sg.TABLE_SELECT_MODE_NONE),
-        sg.Table([], headings=['Registers'], col_widths=[10], auto_size_columns=False, num_rows=min(25, len(source_code_list)), display_row_numbers=True, justification='right', text_color = 'SkyBlue3', key='Register', select_mode=sg.TABLE_SELECT_MODE_NONE),
+        sg.Table(source_code_list, headings=['Program'], col_widths=[10], auto_size_columns=False, num_rows=min(25, len(source_code_list)),  display_row_numbers=True, justification='left', key='Program', select_mode=sg.TABLE_SELECT_MODE_NONE, expand_x=True, expand_y=True),
+        sg.Table([], headings=['Registers'], col_widths=[10], auto_size_columns=False, num_rows=min(25, len(source_code_list)), display_row_numbers=True, justification='right', text_color = 'SkyBlue3', key='Register', select_mode=sg.TABLE_SELECT_MODE_NONE, expand_x=True, expand_y=True),
     ],
     [
-        sg.Text('Output:', key='Output', text_color = 'light green')
+        sg.Text('Output:', key='Output', text_color = 'light green', expand_x=True, expand_y=True)
     ]
 ]
 
-window = sg.Window('RAM - ' + file_name, layout, finalize=True, return_keyboard_events=True)
+window = sg.Window('RAM - ' + file_name, layout, finalize=True, resizable=True, return_keyboard_events=True)
 
 while True:
     window['Program'].update(select_rows = [ram.pc])
+    window['Program'].Widget.see(1+ram.pc) # make selected item visible
     window['Input'].update(value = 'Input: ' + str(ram.input))
     window['Register'].update(values = [[i] for i in ram.register])
     window['Output'].update(value = 'Output: ' + str(ram.output))
