@@ -9,7 +9,7 @@ Input
 
 Output
 --
-* a sequence of integal numbers (output tape)
+* a sequence of intergal numbers (output tape)
 * the output write-only, number by number, in order
 
 RAM registers
