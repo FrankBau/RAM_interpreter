@@ -23,7 +23,7 @@ layout = [
         sg.Text('Input:', key='Input',  text_color = 'tomato')
     ],
     [
-        sg.Table(source_code_list, headings=['Program'], col_widths=[10], auto_size_columns=False, num_rows=min(25, len(source_code_list)),  display_row_numbers=True, justification='left', key='Program', select_mode=sg.TABLE_SELECT_MODE_BROWSE),
+        sg.Table(source_code_list, headings=['Program'], col_widths=[10], auto_size_columns=False, num_rows=min(25, len(source_code_list)),  display_row_numbers=True, justification='left', key='Program', select_mode=sg.TABLE_SELECT_MODE_NONE),
         sg.Table([], headings=['Registers'], col_widths=[10], auto_size_columns=False, num_rows=min(25, len(source_code_list)), display_row_numbers=True, justification='right', text_color = 'SkyBlue3', key='Register', select_mode=sg.TABLE_SELECT_MODE_NONE),
     ],
     [
@@ -31,7 +31,7 @@ layout = [
     ]
 ]
 
-window = sg.Window('RAM - ' + file_name, layout, finalize=True, resizable=True, return_keyboard_events=True, use_default_focus=False)
+window = sg.Window('RAM - ' + file_name, layout, finalize=True, return_keyboard_events=True)
 
 while True:
     window['Program'].update(select_rows = [ram.pc])
@@ -39,7 +39,7 @@ while True:
     window['Register'].update(values = [[i] for i in ram.register])
     window['Output'].update(value = 'Output: ' + str(ram.output))
 
-    window, event, values = sg.read_all_windows()
+    event, values = window.read()
     if event == sg.WIN_CLOSED:
         break
     if event == ' ':
@@ -52,3 +52,5 @@ while True:
         except Exception as e:
             sg.popup_error_with_traceback(f'Exception occured executing instruction number {ram.pc}', e)
             break
+
+window.close()

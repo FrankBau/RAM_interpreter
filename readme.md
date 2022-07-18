@@ -33,7 +33,7 @@ RAM instructions
 | LOAD i  | copy the number in register R[i] to accumulator |
 | STORE i | copy the number in the accumulator to register R[i] |
 | ADD i   | add the number in register R[i] to the value in the accumulator |
-| SUB i   | sub the number in register R[i] to the value in the accumulator |
+| SUB i   | sub the number in register R[i] from the value in the accumulator |
 | JUMP i  | unconditional jump to instruction i |
 | JZERO i | conditional jump to instruction i, only if the content of the accumulator is equal to zero |
 | JGTZ i  | conditional jump to instruction i, only if the content of the accumulator is larger than zero |
