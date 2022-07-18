@@ -19,68 +19,25 @@ ram = RAM(source_code, input)
 source_code_list = [[line] for line in source_code.split('\n')]
 
 layout = [
-    [sg.Table(
-        source_code_list, 
-        headings=['Program'],
-        col_widths=[10],
-        auto_size_columns=False,
-        num_rows=min(25, len(source_code_list)), 
-        display_row_numbers=True, 
-        justification='left',
-        key='Program',
-        select_mode=sg.TABLE_SELECT_MODE_BROWSE
-        )
-    ,
-        sg.Table(
-        [], 
-        headings=['Registers'],
-        col_widths=[10],
-        auto_size_columns=False,
-        num_rows=min(25, len(source_code_list)),
-        display_row_numbers=True, 
-        justification='right',
-        text_color = 'SkyBlue3',
-        key='Register',
-        select_mode=sg.TABLE_SELECT_MODE_NONE
-        )
-    ,
     [
-        sg.Table(
-            [], 
-            headings=['Input'],
-            col_widths=[10],
-            auto_size_columns=False,
-            num_rows=10, 
-            display_row_numbers=True, 
-            justification='right',
-            text_color = 'tomato',
-            key='Input',
-            select_mode=sg.TABLE_SELECT_MODE_NONE
-            )
-        ,
-        sg.Table(
-            [], 
-            headings=['Output'],
-            col_widths=[10],
-            auto_size_columns=False,
-            num_rows=10, 
-            display_row_numbers=True,
-            text_color = 'green yellow',
-            justification='right',
-            key='Output',
-            select_mode=sg.TABLE_SELECT_MODE_NONE
-            )
-        ]
+        sg.Text('Input:', key='Input',  text_color = 'tomato')
+    ],
+    [
+        sg.Table(source_code_list, headings=['Program'], col_widths=[10], auto_size_columns=False, num_rows=min(25, len(source_code_list)),  display_row_numbers=True, justification='left', key='Program', select_mode=sg.TABLE_SELECT_MODE_BROWSE),
+        sg.Table([], headings=['Registers'], col_widths=[10], auto_size_columns=False, num_rows=min(25, len(source_code_list)), display_row_numbers=True, justification='right', text_color = 'SkyBlue3', key='Register', select_mode=sg.TABLE_SELECT_MODE_NONE),
+    ],
+    [
+        sg.Text('Output:', key='Output', text_color = 'light green')
     ]
 ]
 
-window = sg.Window('Random Access Machine', layout, finalize=True, resizable=True, return_keyboard_events=True, use_default_focus=False)
+window = sg.Window('RAM - ' + file_name, layout, finalize=True, resizable=True, return_keyboard_events=True, use_default_focus=False)
 
 while True:
     window['Program'].update(select_rows = [ram.pc])
-    window['Input'].update(values = [[i] for i in ram.input])
+    window['Input'].update(value = 'Input: ' + str(ram.input))
     window['Register'].update(values = [[i] for i in ram.register])
-    window['Output'].update(values = [[i] for i in ram.output])
+    window['Output'].update(value = 'Output: ' + str(ram.output))
 
     window, event, values = sg.read_all_windows()
     if event == sg.WIN_CLOSED:

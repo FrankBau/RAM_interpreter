@@ -1,36 +1,48 @@
-Input:
-==
-Eine Folge von Zahlen (input tape)
+RAM - Random Access Machine
 
-Output:
-==
-Eine Folge von Zahlen (output tape)
+![screenshot](ram_gui.gif)
 
+Input
+--
+* a sequence of integal numbers (input tape)
+* the input is read-only, number by number, in order
+
+Output
+--
+* a sequence of integal numbers (output tape)
+* the output write-only, number by number, in order
 
 RAM registers
-==
-R[0], R[1], ... index: eine nat. Zahl
+--
+* registers R[0], R[1], R[2], ... are indexed by a natural number 
+* register R[0] is the accumulator which occurs implicitly in several instructions
 
-R[0] ist der Akkumulator
+* each register holds an (arbitrarily large) integral number
+* when the program starts, all registers hold the number 0
+* there is a potentially infinite number of registers available
 
 
 RAM instructions
-==
-instructions are numbered by nat. numbers, starting with 0
+--
+| instruction | explanation |
+|----|----|
+| READ    | read next number from input to accumulator |
+| WRITE   | write content of accumulator to output |
+| LOADIMM i | load constant i into accumulator |
+| LOAD i  | copy the number in register R[i] to accumulator |
+| STORE i | copy the number in the accumulator to register R[i] |
+| ADD i   | add the number in register R[i] to the value in the accumulator |
+| SUB i   | sub the number in register R[i] to the value in the accumulator |
+| JUMP i  | unconditional jump to instruction i |
+| JZERO i | conditional jump to instruction i, only if the content of the accumulator is equal to zero |
+| JGTZ i  | conditional jump to instruction i, only if the content of the accumulator is larger than zero |
+| HALT    | halts program execution |
 
-READ    liest die nächste Zahl vom input in den Akkumulator
-WRITE   gibt den Inhalt von Akkumulator auf dem output aus
 
-LOADIMM i  schreibt die Konstante i in den Akkumulator
-
-LOAD i  kopiert den Inhalt von Register i in den Akkumulator
-STORE i kopiert den Wert aus dem Ak in das Register i
-
-ADD i   addiert den Inhalt von Register i zum Wert im Akkumulator
-SUB i   subtrahiert den Inhalt von Register i vom Wert im Akkumulator
-
-JUMP i  unbedingter Sprung zum Befehl Nummer i
-JZERO i bedingter Sprung zum Befehl Nummer i falls der Inhalt von A Null ist
-JGTZ i  bedingter Sprung zum Befehl Nummer i falls der Inhalt von A größer als Null ist
-
-HALT    hält die Programmausführung an
+RAM program
+--
+* a program is a text file containing one valid RAM instruction per line
+* the instructions (lines) are numbered by natural numbers, starting with 0
+* the program instructions are executed line by line, starting at 0 
+* when a jump takes place, the execution is continued at the indicated line number
+   
