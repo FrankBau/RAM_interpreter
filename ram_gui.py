@@ -23,20 +23,14 @@ layout = [
         sg.Text('Input:', key='Input',  text_color = 'tomato', expand_x=True, expand_y=True)
     ],
     [
-<<<<<<< HEAD
         sg.Table(source_code_list, key='Program', headings=['Program'], col_widths=[10], auto_size_columns=False, num_rows=min(25, len(source_code_list)),  display_row_numbers=True, justification='left', select_mode=sg.TABLE_SELECT_MODE_NONE, expand_x=True, expand_y=True),
         sg.Table([], key='Register', headings=['Registers'], col_widths=[10], auto_size_columns=False, num_rows=min(25, len(source_code_list)), display_row_numbers=True, justification='right', select_mode=sg.TABLE_SELECT_MODE_NONE, expand_x=True, expand_y=True, text_color = 'SkyBlue3'),
-=======
-        sg.Table(source_code_list, headings=['Program'], col_widths=[10], auto_size_columns=False, num_rows=min(25, len(source_code_list)),  display_row_numbers=True, justification='left', key='Program', select_mode=sg.TABLE_SELECT_MODE_NONE, expand_x=True, expand_y=True),
-        sg.Table([], headings=['Registers'], col_widths=[10], auto_size_columns=False, num_rows=min(25, len(source_code_list)), display_row_numbers=True, justification='right', text_color = 'SkyBlue3', key='Register', select_mode=sg.TABLE_SELECT_MODE_NONE, expand_x=True, expand_y=True),
->>>>>>> a665032b3300143ca6380ac3cd357b6f7948a068
     ],
     [
         sg.Text('Output:', key='Output', text_color = 'light green', expand_x=True, expand_y=True)
     ]
 ]
 
-<<<<<<< HEAD
 window = sg.Window('RAM - '+file_name, layout, finalize=True, resizable=True, return_keyboard_events=True)
 
 while True:
@@ -45,16 +39,6 @@ while True:
     window['Input'].update(value='Input: '+str(ram.input))
     window['Register'].update(values=[[i] for i in ram.register])
     window['Output'].update(value='Output: '+str(ram.output))
-=======
-window = sg.Window('RAM - ' + file_name, layout, finalize=True, resizable=True, return_keyboard_events=True)
-
-while True:
-    window['Program'].update(select_rows = [ram.pc])
-    window['Program'].Widget.see(1+ram.pc) # make selected item visible
-    window['Input'].update(value = 'Input: ' + str(ram.input))
-    window['Register'].update(values = [[i] for i in ram.register])
-    window['Output'].update(value = 'Output: ' + str(ram.output))
->>>>>>> a665032b3300143ca6380ac3cd357b6f7948a068
 
     event, values = window.read()
     if event==sg.WIN_CLOSED:
