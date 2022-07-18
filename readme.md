@@ -1,10 +1,11 @@
 RAM - Random Access Machine
+==
 
 ![screenshot](ram_gui.gif)
 
 Input
 --
-* a sequence of integal numbers (input tape)
+* a sequence of integral numbers (input tape)
 * the input is read-only, number by number, in order
 
 Output
@@ -44,5 +45,5 @@ RAM program
 * a program is a text file containing one valid RAM instruction per line
 * the instructions (lines) are numbered by natural numbers, starting with 0
 * the program instructions are executed line by line, starting at 0 
-* when a jump takes place, the execution is continued at the indicated line number
+* when a jump takes place, execution is continued at the line number indicated
    
