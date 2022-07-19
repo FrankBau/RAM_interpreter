@@ -5,20 +5,21 @@ RAM - Random Access Machine
 
 Input (aka the input tape)
 --
-* a sequence of integral numbers 
+* a sequence of integer numbers
 * the sequence is read-only, read number by number, in left to right order
 
 Output (aka the output tape)
 --
-* a sequence of intergal numbers
+* a sequence of integer numbers
 * the sequence is write-only, written number by number, in left to right order
 
 RAM registers
 --
 * registers R[0], R[1], R[2], ... are indexed by a natural number 
-* register R[0] is the accumulator which occurs implicitly in several instructions
+* register R[0] also known as the accumulator A
+* the acuumulator also occurs implicitly in several instructions
 
-* each register holds an (arbitrarily large) integral number
+* each register holds an (arbitrarily large) integer number
 * when the program starts, all registers hold the number 0
 * there is a potentially infinite number of registers available
 
@@ -27,16 +28,16 @@ RAM instructions
 --
 | instruction | explanation |
 |----|----|
-| READ    | read next number from input to accumulator |
-| WRITE   | write content of accumulator to output |
-| LOADIMM i | load constant i into accumulator |
-| LOAD i  | copy the number in register R[i] to accumulator |
+| READ    | read next number from the input to the accumulator |
+| WRITE   | write the number in the accumulator to the output |
+| LOADIMM i | load the number i into the accumulator |
+| LOAD i  | copy the number in register R[i] to the accumulator |
 | STORE i | copy the number in the accumulator to register R[i] |
-| ADD i   | add the number in register R[i] to the value in the accumulator |
-| SUB i   | sub the number in register R[i] from the value in the accumulator |
+| ADD i   | add the number in register R[i] to the number in the accumulator (result in accumulator) |
+| SUB i   | sub the number in register R[i] from the number in the accumulator (result in accumulator) |
 | JUMP i  | unconditional jump to instruction i |
-| JZERO i | conditional jump to instruction i, only if the content of the accumulator is equal to zero |
-| JGTZ i  | conditional jump to instruction i, only if the content of the accumulator is larger than zero |
+| JZERO i | conditional jump to instruction i, jumps only if the number in the accumulator is equal to zero |
+| JGTZ i  | conditional jump to instruction i, jumps only if the number in the accumulator is larger than zero |
 | HALT    | halts program execution |
 
 
