@@ -3,15 +3,15 @@ RAM - Random Access Machine
 
 ![screenshot](ram_gui.gif)
 
-Input
+Input (aka the input tape)
 --
-* a sequence of integral numbers (input tape)
-* the input is read-only, number by number, in order
+* a sequence of integral numbers 
+* the sequence is read-only, read number by number, in left to right order
 
-Output
+Output (aka the output tape)
 --
-* a sequence of intergal numbers (output tape)
-* the output write-only, number by number, in order
+* a sequence of intergal numbers
+* the sequence is write-only, written number by number, in left to right order
 
 RAM registers
 --
