@@ -1,6 +1,5 @@
 from atexit import register
 
-
 class RAM:
 
     def __init__(self, source_code, input=[]):
@@ -22,6 +21,7 @@ class RAM:
         if opcode == 'READ':
             self.register[0] = self.input.pop(0)
         elif opcode == 'WRITE':
+            print(self.register[0], end=' ')
             self.output.append(self.register[0])
         elif opcode == 'LOADIMM':
             self.register[0] = oparg
@@ -70,7 +70,4 @@ if __name__ == "__main__":
     while not ram.halted:
         ram.step()
 
-    for i in ram.output:
-        print(i, end=' ')
-    print('')
     sys.exit(0)
