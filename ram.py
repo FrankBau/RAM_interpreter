@@ -1,5 +1,3 @@
-from atexit import register
-
 class RAM:
 
     def __init__(self, source_code, input=[]):
@@ -23,12 +21,18 @@ class RAM:
         elif opcode == 'WRITE':
             print(self.register[0], end=' ')
             self.output.append(self.register[0])
-        elif opcode == 'LOADIMM':
+        elif opcode == 'LIMM':
             self.register[0] = oparg
         elif opcode == 'LOAD':
             self.register[0] = self.register[oparg]
+        elif opcode == 'LOADI':
+            r = self.register[oparg]
+            self.register[0] = self.register[r]
         elif opcode == 'STORE':
             self.register[oparg] = self.register[0]
+        elif opcode == 'STORI':
+            r = self.register[oparg]
+            self.register[r] = self.register[0]
         elif opcode == 'ADD':
             self.register[0] = self.register[0] + self.register[oparg]
         elif opcode == 'SUB':
@@ -54,17 +58,18 @@ if __name__ == "__main__":
 
     import sys
 
-    if len(sys.argv) < 2:
-        print("usage: ram program.ram input1 input2 ...")
-        sys.exit(1)
-
-    file_name = sys.argv[1]
+    if len(sys.argv) > 1:
+        file_name = sys.argv[1]
+    else:
+        file_name = 'test.ram'
+    
     file = open(file_name, mode='r')
     source_code = file.read()
     file.close()
 
-    input = [int(i) for i in sys.argv[2:]]
-
+    line = input()
+    input = [int(i) for i in line.split()]
+    
     ram = RAM(source_code, input)
 
     while not ram.halted:

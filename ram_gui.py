@@ -41,9 +41,10 @@ while True:
     window['Output'].update(value='Output: '+str(ram.output))
 
     event, values = window.read()
+    print(event)
     if event==sg.WIN_CLOSED:
         break
-    if event==' ':
+    if event==' ' or event=='space:65': # SPACE bar pressed, space:65 seen on debian sid bspwm
         try:
             if not ram.halted and not ram.step():
                 sg.popup_auto_close('RAM halted')
